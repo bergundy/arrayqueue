@@ -1,0 +1,3 @@
+arrayqueue.h
+
+This is a collection of macros that implement a queue with a C array.
