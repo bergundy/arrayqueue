@@ -1,0 +1,35 @@
+#!/bin/bash
+
+prefix=/usr
+
+ac_prev=
+
+for ac_option; do
+  if test -n "$ac_prev"; then
+    eval $ac_prev=\$ac_option
+    ac_prev=
+    continue
+  fi
+
+  case $ac_option in
+  *=*)
+    ac_optarg=`expr "X$ac_option" : '[^=]*=\(.*\)'`
+    ;;
+  --prefix)
+    ac_prev=prefix
+    continue
+    ;;
+  esac
+
+  case $ac_option in
+  --prefix=*)
+    prefix=$ac_optarg ;;
+  esac
+done
+
+if test ! -d $prefix; then 
+    echo "prefix directory '$prefix' is not valid" 1>&2
+    exit 1
+fi
+
+perl -p -i -e "s^INSTALL_DIR=\S+^INSTALL_DIR=$prefix^" Makefile
