@@ -22,13 +22,13 @@ struct struct_name {                             \
 #define AQ_FULL(q)       ( (q)->used == (q)->size )
 #define AQ_EMPTY(q)      ( (q)->used == 0 )
 
-#define AQ_REAR_NV(q)    ( (q)->nodes + (q)->rear )
-#define AQ_REAR(q)       ( AQUEUE_EMPTY(q) ? NULL : AQUEUE_REAR_NV(q) )
+#define AQ_REAR_(q)      ( (q)->nodes + (q)->rear )
+#define AQ_REAR(q)       ( AQ_EMPTY(q) ? NULL : AQ_REAR_(q) )
 
-#define AQ_FRONT_NV(q)   ( (q)->nodes + (q)->front )
-#define AQ_FRONT(q)      ( AQUEUE_FULL(q) ? NULL : AQUEUE_FRONT_NV(q) )
+#define AQ_FRONT_(q)     ( (q)->nodes + (q)->front )
+#define AQ_FRONT(q)      ( AQ_FULL(q) ? NULL : AQ_FRONT_(q) )
 
-#define AQ_FIN_GET(q)    ( (q)->rear  = ( (q)->rear  + 1 ) % (q)->size, (q)->used-- )
-#define AQ_FIN_PUT(q)    ( (q)->front = ( (q)->front + 1 ) % (q)->size, (q)->used++ )
+#define AQ_DEQ_FIN(q)    ( (q)->rear  = ( (q)->rear  + 1 ) % (q)->size, (q)->used-- )
+#define AQ_ENQ_FIN(q)    ( (q)->front = ( (q)->front + 1 ) % (q)->size, (q)->used++ )
 
 #endif /* ARRAYQUEUE_H */
